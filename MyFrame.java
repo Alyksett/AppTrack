@@ -3,7 +3,7 @@ import java.awt.*;
 import java.awt.event.*;
 
 
-public class MyFrame extends JFrame {
+public class MyFrame extends JFrame{
   private JButton saveButton  = new JButton("Save");
   private JButton getButton = new JButton("Get");
 
@@ -22,9 +22,7 @@ public class MyFrame extends JFrame {
     setResizable(false);
 
     initComponent();    
-    initEvent();    
-
-   
+    initEvent();
   }
 
   private void initComponent(){
@@ -56,6 +54,8 @@ public class MyFrame extends JFrame {
     add(OAField);
     add(rejectField);
     add(notesField);
+
+    
   }
 
   private void initEvent(){
@@ -68,110 +68,36 @@ public class MyFrame extends JFrame {
 
     saveButton.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
-        btnTutupClick(e);
-      }
+        String name = companyNameField.getText();
+        String date = applyDateField.getText();
+        String OA = OAField.getText();
+        String rejected = rejectField.getText();
+        String notes = notesField.getText();
+          
+        if(Driver.addApplication(name, date, OA, rejected, notes) != (true)){
+            JOptionPane.showMessageDialog(null, 
+            "There was an error while adding to the database.",
+            "Error", 
+            JOptionPane.ERROR_MESSAGE);
+        }   
+    }
     });
 
     getButton.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
-        btnTambahClick(e);
+        displayEditGUI();
       }
     });
   }
   
-  private void btnTutupClick(ActionEvent evt){
-    System.exit(0);
-  }
   
-  private void btnTambahClick(ActionEvent evt){
-    Integer x,y,z;
-    try{
-      x = Integer.parseInt(companyNameField.getText());
-      y = Integer.parseInt(applyDateField.getText());
-      z = x + y;
-      OAField.setText(z.toString());
-
-    }catch(Exception e){
-      System.out.println(e);
-      JOptionPane.showMessageDialog(null, 
-          e.toString(),
-          "Error", 
-          JOptionPane.ERROR_MESSAGE);
+    private boolean displayEditGUI(){
+        
+        JFrame editFrame = new JFrame();
+        
+        
+        
+        
+        return false;
     }
-
-  /*    
-                        Focus Listeners. 
-       For when the user selects the box and the text will dissapear.
-  */
-
-    companyNameField.addFocusListener(new FocusListener() {
-        @Override
-        public void focusGained(FocusEvent e) {
-         companyNameField.setText(null); // Empty the text field when it receives focus
-        }
-
-        @Override
-        public void focusLost(FocusEvent e) {
-         // You could do something here when the field loses focus, if you like
-        }
-
-    });
-
-    applyDateField.addFocusListener(new FocusListener() {
-        @Override
-        public void focusGained(FocusEvent e) {
-            companyNameField.setText(null); // Empty the text field when it receives focus
-        }
-
-        @Override
-        public void focusLost(FocusEvent e) {
-            // You could do something here when the field loses focus, if you like
-        }
-
-    });
-
-    
-    OAField.addFocusListener(new FocusListener() {
-        @Override
-        public void focusGained(FocusEvent e) {
-            companyNameField.setText(null); // Empty the text field when it receives focus
-        }
-
-        @Override
-        public void focusLost(FocusEvent e) {
-            // You could do something here when the field loses focus, if you like
-        }
-
-    });
-
-    
-    rejectField.addFocusListener(new FocusListener() {
-        @Override
-        public void focusGained(FocusEvent e) {
-            companyNameField.setText(null); // Empty the text field when it receives focus
-        }
-
-        @Override
-        public void focusLost(FocusEvent e) {
-            // You could do something here when the field loses focus, if you like
-        }
-
-    });
-
-    
-    notesField.addFocusListener(new FocusListener() {
-        @Override
-        public void focusGained(FocusEvent e) {
-            companyNameField.setText(null); // Empty the text field when it receives focus
-        }
-
-        @Override
-        public void focusLost(FocusEvent e) {
-            // You could do something here when the field loses focus, if you like
-        }
-
-    });
 }
-}
-    
-
