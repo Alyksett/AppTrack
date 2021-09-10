@@ -7,48 +7,55 @@ public class MyFrame extends JFrame {
   private JButton saveButton  = new JButton("Save");
   private JButton getButton = new JButton("Get");
 
-  private JTextField txtA = new JTextField();
-  private JTextField txtB = new JTextField();
-  private JTextField txtC = new JTextField();
+  private JTextField companyNameField = new JTextField("Company name");
+  private JTextField applyDateField = new JTextField("Date");
+  private JTextField OAField = new JTextField("OA?");
+  private JTextField rejectField = new JTextField("rejected/accepted");
+  private JTextArea notesField = new JTextArea("Notes");
 
-  private JLabel lblA = new JLabel("A :");
-  private JLabel lblB = new JLabel("B :");
-  private JLabel lblC = new JLabel("C :");
 
   public MyFrame(){
     setTitle("AppTrack");
-    setSize(400,200);
+    setSize(350,250);
     setLocation(new Point(300,200));
     setLayout(null);    
     setResizable(false);
 
     initComponent();    
     initEvent();    
+
+   
   }
 
   private void initComponent(){
-    saveButton.setBounds(300,130, 80,25);
-    getButton.setBounds(300,100, 80,25);
+    //save and get buttons
+    saveButton.setBounds(210,5, 80,25);
+    getButton.setBounds(210,35, 80,25);
 
-    txtA.setBounds(100,10,100,20);
-    txtB.setBounds(100,35,100,20);
-    txtC.setBounds(100,65,100,20);
+    //first 2 is the location in the frame, second two are the dimensions of the text area/field
+    companyNameField.setBounds(20, 5, 145, 20);
+    applyDateField.setBounds(20, 30, 145, 20);
+    OAField.setBounds(20, 55, 145, 20);
+    rejectField.setBounds(20, 80, 145, 20);
+    notesField.setBounds(20, 105, 145, 100);
 
-    lblA.setBounds(20,10,100,20);
-    lblB.setBounds(20,35,100,20);
-    lblC.setBounds(20,65,100,20);
 
+    JFrame frame1 = new JFrame();
+
+    //frame1.add(saveButton);
 
     add(saveButton);
     add(getButton);
 
-    add(lblA);
-    add(lblB);
-    add(lblC);
+    //add(lblA);
+    //add(lblB);
+    //add(lblC);
 
-    add(txtA);
-    add(txtB);
-    add(txtC);
+    add(companyNameField);
+    add(applyDateField);
+    add(OAField);
+    add(rejectField);
+    add(notesField);
   }
 
   private void initEvent(){
@@ -79,10 +86,10 @@ public class MyFrame extends JFrame {
   private void btnTambahClick(ActionEvent evt){
     Integer x,y,z;
     try{
-      x = Integer.parseInt(txtA.getText());
-      y = Integer.parseInt(txtB.getText());
+      x = Integer.parseInt(companyNameField.getText());
+      y = Integer.parseInt(applyDateField.getText());
       z = x + y;
-      txtC.setText(z.toString());
+      OAField.setText(z.toString());
 
     }catch(Exception e){
       System.out.println(e);
@@ -91,7 +98,80 @@ public class MyFrame extends JFrame {
           "Error", 
           JOptionPane.ERROR_MESSAGE);
     }
-  }
+
+  /*    
+                        Focus Listeners. 
+       For when the user selects the box and the text will dissapear.
+  */
+
+    companyNameField.addFocusListener(new FocusListener() {
+        @Override
+        public void focusGained(FocusEvent e) {
+         companyNameField.setText(null); // Empty the text field when it receives focus
+        }
+
+        @Override
+        public void focusLost(FocusEvent e) {
+         // You could do something here when the field loses focus, if you like
+        }
+
+    });
+
+    applyDateField.addFocusListener(new FocusListener() {
+        @Override
+        public void focusGained(FocusEvent e) {
+            companyNameField.setText(null); // Empty the text field when it receives focus
+        }
+
+        @Override
+        public void focusLost(FocusEvent e) {
+            // You could do something here when the field loses focus, if you like
+        }
+
+    });
 
     
+    OAField.addFocusListener(new FocusListener() {
+        @Override
+        public void focusGained(FocusEvent e) {
+            companyNameField.setText(null); // Empty the text field when it receives focus
+        }
+
+        @Override
+        public void focusLost(FocusEvent e) {
+            // You could do something here when the field loses focus, if you like
+        }
+
+    });
+
+    
+    rejectField.addFocusListener(new FocusListener() {
+        @Override
+        public void focusGained(FocusEvent e) {
+            companyNameField.setText(null); // Empty the text field when it receives focus
+        }
+
+        @Override
+        public void focusLost(FocusEvent e) {
+            // You could do something here when the field loses focus, if you like
+        }
+
+    });
+
+    
+    notesField.addFocusListener(new FocusListener() {
+        @Override
+        public void focusGained(FocusEvent e) {
+            companyNameField.setText(null); // Empty the text field when it receives focus
+        }
+
+        @Override
+        public void focusLost(FocusEvent e) {
+            // You could do something here when the field loses focus, if you like
+        }
+
+    });
 }
+}
+    
+
