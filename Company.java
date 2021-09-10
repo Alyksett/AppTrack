@@ -55,7 +55,7 @@ public class Company {
     }
 
     public void updateNotes(String update){
-        this.OA = update;
+        this.notes = update;
     }
 
 }

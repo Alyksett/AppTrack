@@ -37,17 +37,8 @@ public class MyFrame extends JFrame{
     rejectField.setBounds(20, 80, 145, 20);
     notesField.setBounds(20, 105, 145, 100);
 
-
-    JFrame frame1 = new JFrame();
-
-    //frame1.add(saveButton);
-
     add(saveButton);
     add(getButton);
-
-    //add(lblA);
-    //add(lblB);
-    //add(lblC);
 
     add(companyNameField);
     add(applyDateField);
@@ -85,19 +76,8 @@ public class MyFrame extends JFrame{
 
     getButton.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
-        displayEditGUI();
+        EditApplicationGUI newWindow = new EditApplicationGUI();             
       }
     });
   }
-  
-  
-    private boolean displayEditGUI(){
-        
-        JFrame editFrame = new JFrame();
-        
-        
-        
-        
-        return false;
-    }
 }
