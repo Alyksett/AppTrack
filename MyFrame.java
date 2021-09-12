@@ -1,7 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-
+import java.io.IOException;
 
 public class MyFrame extends JFrame{
   private JButton saveButton  = new JButton("Save");
@@ -13,7 +13,7 @@ public class MyFrame extends JFrame{
   private JTextField rejectField = new JTextField("rejected/accepted");
   private JTextArea notesField = new JTextArea("Notes");
 
-
+  //constructor
   public MyFrame(){
     setTitle("AppTrack");
     setSize(350,250);
@@ -45,15 +45,19 @@ public class MyFrame extends JFrame{
     add(OAField);
     add(rejectField);
     add(notesField);
-
-    
   }
 
+  //handling events
   private void initEvent(){
-
     this.addWindowListener(new WindowAdapter() {
       public void windowClosing(WindowEvent e){
-       System.exit(1);
+        try {
+            Driver.saveFile();
+        } catch (IOException e1) {
+
+            e1.printStackTrace();
+        }
+        System.exit(1);
       }
     });
 
@@ -65,18 +69,20 @@ public class MyFrame extends JFrame{
         String rejected = rejectField.getText();
         String notes = notesField.getText();
           
-        if(Driver.addApplication(name, date, OA, rejected, notes) != (true)){
-            JOptionPane.showMessageDialog(null, 
-            "There was an error while adding to the database.",
-            "Error", 
-            JOptionPane.ERROR_MESSAGE);
-        }   
+        //Driver.addApplication(name, date, OA, rejected, notes);
+
+         if(Driver.addApplication(name, date, OA, rejected, notes) != (true)){
+             JOptionPane.showMessageDialog(null, 
+             "There was an error while adding to the database.",
+             "Error", 
+             JOptionPane.ERROR_MESSAGE);
+         }   
     }
     });
-
+    
     getButton.addActionListener(new ActionListener() {
-      public void actionPerformed(ActionEvent e) {
-        EditApplicationGUI newWindow = new EditApplicationGUI();             
+        public void actionPerformed(ActionEvent e) {
+        new EditApplicationGUI();             
       }
     });
   }

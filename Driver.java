@@ -1,20 +1,52 @@
+/** 
+ * 
+ * 
+ */
+
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Writer;
 import java.util.HashMap;
+import org.json.simple.parser.ParseException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.*;
+
 
 public class Driver {
     static HashMap<String, Company> database = new HashMap<String, Company>();
-
-    public static void main(String[] args){
-        
-
+    public static void main(String[] args) throws IOException, ParseException{
         MyFrame GUI = new MyFrame();
         GUI.setVisible(true);
+        openFile();
+    }
+    public static void saveFile() throws IOException{
+        Gson gson1 = new Gson();
 
+        try(Writer writer = new FileWriter("dataSave.json")){
+            gson1.toJson(database, writer);
+        }
+    }
+    public static void openFile() throws IOException, ParseException{
+
+        try(FileReader reader = new FileReader("dataSave.json")){
+
+            TypeReference<HashMap<String, Company>> typeRef = new TypeReference<>() {};
+            ObjectMapper mapper = new ObjectMapper();
+            HashMap<String, Company> mapping = mapper.readValue(reader, typeRef);
+            
+            database.putAll(mapping);            
+        }
+        catch(FileNotFoundException exception){
+            exception.printStackTrace();
+        }
     }
 
     public static boolean addApplication(String name, String date, String OA, String rejected, String notes){
         
         database.put(name, new Company(name, date, OA, rejected, notes));
-        System.out.println("Add Application.");
         if(database.containsKey(name)){
             return true;
         }
@@ -37,5 +69,4 @@ public class Driver {
         database.get(name).updateNotes(Notes);
         System.out.println("Update Application.");
     }
-
 }

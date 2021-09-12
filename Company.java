@@ -1,3 +1,7 @@
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+
 public class Company {
     private String companyName;
     private String applyDate;
@@ -6,14 +10,26 @@ public class Company {
     private String notes;
 
     //constructor
-    public Company(String name, String date, String newOA, String newRejected, String newNotes){
+    public Company(){
+        companyName = "fix";
+        applyDate = "fix";
+        OA = "fix";
+        appState = "fix";
+        notes = "fix";
+    }
+    @JsonCreator
+    public Company(
+            @JsonProperty("companyName") String name, 
+            @JsonProperty("applyDate")String date, 
+            @JsonProperty("OA")String newOA, 
+            @JsonProperty("appState")String newRejected, 
+            @JsonProperty("notes")String newNotes) {
         this.companyName = name;
         this.applyDate = date;
         this.OA = newOA;
         this.appState = newRejected;
         this.notes = newNotes;
     }
-    
     
     
     //accessor methods

@@ -75,6 +75,7 @@ class EditApplicationGUI extends JFrame {
         String name = companyNameField.getText();
         String date = applyDateField.getText();
         String OA = OAField.getText();
+        System.out.println(OA + "This is the OA field from the GUI");        
         String rejected = rejectField.getText();
         String notes = notesField.getText();
         Driver.updateApplication(name, date, OA, rejected, notes);
