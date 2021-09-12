@@ -19,8 +19,9 @@ public class Driver {
     static HashMap<String, Company> database = new HashMap<String, Company>();
     public static void main(String[] args) throws IOException, ParseException{
         MyFrame GUI = new MyFrame();
-        GUI.setVisible(true);
         openFile();
+        GUI.setVisible(true);
+        MyFrame.updateAppCounter();
     }
     public static void saveFile() throws IOException{
         Gson gson1 = new Gson();
@@ -68,5 +69,10 @@ public class Driver {
         database.get(name).updateAppState(appState);
         database.get(name).updateNotes(Notes);
         System.out.println("Update Application.");
+    }
+
+    public static int getTotalApplications(){
+        //System.out.println(database.get("Company name").getApplyDate());
+        return database.keySet().size();
     }
 }

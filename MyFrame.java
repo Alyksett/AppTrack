@@ -13,6 +13,9 @@ public class MyFrame extends JFrame{
   private JTextField rejectField = new JTextField("rejected/accepted");
   private JTextArea notesField = new JTextArea("Notes");
 
+  private static JLabel appCounter = new JLabel();
+
+
   //constructor
   public MyFrame(){
     setTitle("AppTrack");
@@ -37,6 +40,11 @@ public class MyFrame extends JFrame{
     rejectField.setBounds(20, 80, 145, 20);
     notesField.setBounds(20, 105, 145, 100);
 
+    appCounter.setBounds(175, 100, 150, 20);
+
+    add(appCounter);
+    updateAppCounter();
+
     add(saveButton);
     add(getButton);
 
@@ -54,7 +62,6 @@ public class MyFrame extends JFrame{
         try {
             Driver.saveFile();
         } catch (IOException e1) {
-
             e1.printStackTrace();
         }
         System.exit(1);
@@ -68,22 +75,24 @@ public class MyFrame extends JFrame{
         String OA = OAField.getText();
         String rejected = rejectField.getText();
         String notes = notesField.getText();
-          
-        //Driver.addApplication(name, date, OA, rejected, notes);
-
+        
          if(Driver.addApplication(name, date, OA, rejected, notes) != (true)){
              JOptionPane.showMessageDialog(null, 
              "There was an error while adding to the database.",
              "Error", 
              JOptionPane.ERROR_MESSAGE);
-         }   
+         }  
+         updateAppCounter(); 
     }
     });
-    
+
     getButton.addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent e) {
         new EditApplicationGUI();             
       }
     });
+  }
+  public static void updateAppCounter(){
+    appCounter.setText("Total Applications: " + Driver.getTotalApplications());
   }
 }
